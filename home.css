@@ -1,0 +1,105 @@
+body {
+    margin: 0;
+    min-height: 100vh;
+    background-color: #000000;
+    position: relative;
+    overflow: hidden;
+}
+
+.interactive-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 50px);
+    grid-template-rows: repeat(auto-fill, 50px);
+    z-index: 0;
+    gap: 1px;
+    overflow: hidden; /* Added this line */
+}
+
+.container {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: space-around;
+    padding: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    overflow: hidden; /* Added this line */
+}
+.interactive-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 50px);
+    grid-template-rows: repeat(auto-fill, 50px);
+    z-index: 0;
+    gap: 1px;
+}
+
+.bg-box {
+    width: 100%;
+    height: 100%;
+    background-color: #e5e7eb;
+    opacity: 0.1;
+    transition: all 0.3s ease-out;
+    border-radius: 4px;
+}
+
+.container {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: space-around;
+    padding: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.process-box {
+    border: 1.5px solid rgba(0, 0, 0, 0.1);
+    width: 250px;
+    height: 350px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(8px);
+    box-shadow: 
+        0 4px 6px rgba(0, 0, 0, 0.05),
+        0 10px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.process-box:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.9);
+    border-color: rgba(29, 78, 216, 0.2);
+}
+
+.process-text {
+    text-align: center;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: #1a1a1a;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+/* Performance optimizations */
+* {
+    box-sizing: border-box;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .bg-box, .process-box {
+        transition: none;
+    }
+}

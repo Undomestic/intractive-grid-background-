@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Process Layout</title>
+    <link rel="stylesheet" href="home.css">
+</head>
+<body>
+    <div class="interactive-background"></div>
+    <div class="container">
+        <div class="process-box">
+            <div class="process-text">Process</div>
+        </div>
+        <div class="process-box">
+            <div class="process-text">Process</div>
+        </div>
+        <div class="process-box">
+            <div class="process-text">Process</div>
+        </div>
+    </div>
+
+    <script>
+        const background = document.querySelector('.interactive-background');
+        const boxSize = 50; 
+        const rows = Math.ceil(window.innerHeight / boxSize);
+        const cols = Math.ceil(window.innerWidth / boxSize);
+
+        
+        for (let i = 0; i < rows * cols; i++) {
+            const box = document.createElement('div');
+            box.className = 'bg-box';
+            background.appendChild(box);
+        }
+
+        function updateBoxes(e) {
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+            const boxes = document.querySelectorAll('.bg-box');
+
+            boxes.forEach(box => {
+                const rect = box.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+
+                const deltaX = mouseX - centerX;
+                const deltaY = mouseY - centerY;
+                const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+                const maxDistance = 200; // Maximum distance for effect
+
+                if (distance < maxDistance) {
+                    const angle = Math.atan2(deltaY, deltaX);
+                    const scale = 1 + (1 - distance / maxDistance) * 0.4;
+                    const opacity = 0.1 + (1 - distance / maxDistance) * 0.3;
+
+                    box.style.transform = `
+                        scale(${scale}) 
+                        rotate(${angle * 30}deg)
+                    `;
+                    box.style.opacity = opacity;
+                    box.style.backgroundColor = `rgba(29, 78, 216, ${opacity * 0.5})`;
+                } else {
+                    box.style.transform = 'scale(1) rotate(0deg)';
+                    box.style.opacity = '0.1';
+                    box.style.backgroundColor = '#e5e7eb';
+                }
+            });
+        }
+
+        document.addEventListener('mousemove', updateBoxes);
+
+        window.addEventListener('resize', () => {
+            background.innerHTML = '';
+            const newRows = Math.ceil(window.innerHeight / boxSize);
+            const newCols = Math.ceil(window.innerWidth / boxSize);
+            
+            for (let i = 0; i < newRows * newCols; i++) {
+                const box = document.createElement('div');
+                box.className = 'bg-box';
+                background.appendChild(box);
+            }
+        });
+    </script>
+</body>
+</html>
